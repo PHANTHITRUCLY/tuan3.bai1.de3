@@ -4,19 +4,17 @@
 #include<time.h>
 #include <stdlib.h>
 #include<iostream>
-using namespace std;
 #include<map>
 using namespace std; 
 
-void Sapxep(int a[], int n)
+void Sapxep(int a[], int n) // sap xep theo thu tu tang dan
 {
-	int i,j;
-	for(i=0;i<n - 1;i++)
+	for(int i=0; i<n - 1; i++)
 	{
-		for(j=i+1;j<n;j++)
+		for(int j=i+1; j<n; j++)
 		{
-			if(a[i]>a[j])
-				swap(a[i],a[j]);
+			if(a[i] > a[j])
+				swap(a[i] , a[j]);
 		}
 	}
 }
@@ -29,19 +27,17 @@ void Xuat(int a[], int n){
 	}
 }
 
-
-
 int Soxo(int a[]){
-	srand((int)time(0));//--random thay doi theo tg
-	map<int, bool> vis;//----tao map
+	srand((int)time(0));  //--random thay doi theo tg
+	map<int, bool> vis;   //----tao map
 	for(int i = 0; i< 7; ++i){
 		do{
 			a[i] = rand() % 55 + 1;
-		} while(vis.find(a[i]) != vis.end());//-------kiem tra dieu kien ket thuc
-		vis[a[i]] = true;//-----danh dau a da co
+		} while(vis.find(a[i]) != vis.end() );   //-------kiem tra dieu kien ket thuc
+		vis[a[i]] = true;    //-----danh dau a da co
 	}
 	Sapxep(a,6);
-	cout<<endl<<"So xo: ";
+	cout<<endl<<"So xo (6 so dau la jackpot1, so cuoi la so dac biet trong jackpot2): ";
 	Xuat(a,7);
 }
 void Nguoi(int c[]){
@@ -50,15 +46,15 @@ void Nguoi(int c[]){
 		do{
 		cout<<endl<<"Nhap so thu "<<i+1<<": ";
 		cin>>c[i];
-		}while(vis.find(c[i]) != vis.end() || c[i] <= 0 || c[i] > 55);//-------kiem tra dieu kien ket thuc
-		vis[c[i]] = true;//-----danh dau a da co
+		}while(vis.find(c[i]) != vis.end() || c[i] <= 0 || c[i] > 55 );//-------kiem tra dieu kien ket thuc
+		vis[c[i]] = true;   //-----danh dau c da co
 	}
 	Sapxep(c,6);
 	cout<<endl<<"Nguoi choi: ";	
 	Xuat(c,6);
 	}
 void Kiemtra(int a[],  int c[]){
-	int dem = 0, dem1 =0, d[6]={0,0,0,0,0,0};
+	int dem = 0, d[6]={0,0,0,0,0,0};
 	for(int i = 0 ; i <6 ; i++){
 		for(int j =0; j<6; j++){
 			if(a[i] == c[j])
@@ -75,10 +71,15 @@ void Kiemtra(int a[],  int c[]){
 	else if(dem == 4)
 		cout<<endl<<"Chuc mung ban da trung giai nhi";
 	else if(dem == 5){
-		for(int i = 0; i < 6; i++)
-			if(d[i] == 0&&c[i] == a[6]) 
+		bool t = false;
+			for(int i = 0; i < 6; i++)
+			if(d[i] == 0&&c[i] == a[6]){
 			 cout<<endl<<"Chuc mung ban da trung jackpot 2";
-	}
+			 t=true;	
+			} 
+		if(t==false)
+		cout<<endl<<"Chuc mung ban da trung giai nhat";	
+		}	
 	else if(dem == 6)
 		cout<<endl<<"Chuc mung ban da trung jackpot 1";
 	
@@ -94,7 +95,7 @@ int main(){
 		cin>>choi;
 		if(choi != 0){
 			Soxo(a);
-			cout<<"\nVui long nhap 6 so ban muon!\n (Yeu cau: So tu 01 -> 55, khong nhap trung nhau )\n";
+			cout<<endl<<"Vui long nhap 6 so ban muon!\n (Yeu cau: So tu 01 -> 55, khong nhap trung nhau )\n";
 			Nguoi(c);		
 			Kiemtra(a,c);	
 		}	
